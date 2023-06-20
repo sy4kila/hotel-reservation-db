@@ -1,6 +1,5 @@
 package com.csc3402.lab.hotelreservation.model;
 
-import com.csc3402.lab.hotelreservation.model.Reservation;
 import jakarta.persistence.*;
 
 import java.util.Set;
