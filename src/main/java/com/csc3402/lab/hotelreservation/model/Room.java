@@ -38,6 +38,10 @@ public class Room {
     @Column(name = "photo_Url")
     private String photoUrl;
 
+    @ManyToOne
+    @JoinColumn (name = "reservation_no")
+    private Reservation reservation;
+
     public Integer getRoomId() {
         return roomId;
     }
@@ -86,6 +90,7 @@ public class Room {
         this.photoUrl = photoUrl;
     }
 
+
     @Override
     public String toString() {
         return "Room{" +
@@ -97,5 +102,16 @@ public class Room {
                 ", photoUrl='" + photoUrl + '\'' +
                 '}';
     }
+
+
+
+    public Reservation getReservation(){
+        return reservation;
+    }
+
+    public void setReservation(Reservation reservation){
+        this.reservation = reservation;
+    }
 }
+
 

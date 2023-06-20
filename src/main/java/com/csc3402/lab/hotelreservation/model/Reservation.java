@@ -1,12 +1,13 @@
 package com.csc3402.lab.hotelreservation.model;
 
 import jakarta.persistence.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
+import java.util.Set;
 
 @Entity
 public class Reservation {
-    //attributes
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY) //auto tu maybe auto increment(?)
@@ -14,10 +15,24 @@ public class Reservation {
     private Integer reservationNum;
 
     @Column(name = "check_in")
+    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
     private Date checkIn;
 
     @Column(name = "check_out")
+    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
     private Date checkOut;
+
+    @OneToMany(mappedBy = "reservation", cascade = CascadeType.ALL )
+    private Set<Room> rooms;
+
+
+    @ManyToOne
+    @MapsId("guestId")
+    @JoinColumn(name = "guest_id")
+    private Guest guest;
+
+    public Reservation() {
+    }
 
     //get set method -----------------------------------------
     public Integer getReservationNum() {
@@ -44,11 +59,20 @@ public class Reservation {
         this.checkOut = checkOut;
     }
 
-    //no arg constructor (with arg x de lg)------------------------------------
-    public Reservation() {
+    public Set<Room> getRooms() {
+        return rooms;
     }
 
-    //toString method----------------------------------------
+    public void setRooms(Set<Room> rooms) {
+        this.rooms = rooms;
+    }
+
+    public Reservation(Integer reservationNum, Date checkIn, Date checkOut, Set<Room> rooms) {
+        this.reservationNum = reservationNum;
+        this.checkIn = checkIn;
+        this.checkOut = checkOut;
+        this.rooms = rooms;
+    }
 
     @Override
     public String toString() {
@@ -56,6 +80,16 @@ public class Reservation {
                 "reservationNum=" + reservationNum +
                 ", checkIn=" + checkIn +
                 ", checkOut=" + checkOut +
+                ", rooms=" + rooms +
                 '}';
     }
+
+    public Guest getGuest() {
+        return guest;
+    }
+
+    public void setGuest(Guest guest){
+        this.guest = guest;
+    }
 }
+
