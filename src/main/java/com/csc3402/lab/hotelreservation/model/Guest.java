@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import java.util.Set;
 
 @Entity
+
 public class Guest {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
